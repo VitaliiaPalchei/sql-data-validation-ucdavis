@@ -29,11 +29,14 @@ WHERE y.Year = 2022
   );
 
 -- Which states had cheese production greater than 100 million in April 2023
-SELECT State_ANSI 
-FROM cheese_production 
-WHERE Year = 2023 
-  AND Period = 'APR' 
-  AND Value > 100000000;
+SELECT sl.State, cp.Value
+FROM cheese_production cp
+JOIN state_lookup sl
+    ON cp.State_ANSI = sl.State_ANSI
+WHERE cp.Year = 2023
+  AND cp.Period = 'APR'
+  AND cp.Value > 100000000;
+
 
 -- List all states with their cheese production values, even if they didn't produce any cheese in April of 2023
 SELECT s.State, c.Value
